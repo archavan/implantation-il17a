@@ -37,3 +37,33 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+### modified by me below this. Default above this.
+# temp folders
+**/temp
+
+# misc
+*.tif
+*.jpg
+*.png
+*.xlsx
+*.zip
+*.xls
+*.pptx
+*.ppt
+*.docx
+*.doc
+
+# seq data
+*.gz
+*.fastq
+*.fasta
+*.gtf
+
+# log files
+*.log
+*.out
+
+# system files
+.DS_Store 
+

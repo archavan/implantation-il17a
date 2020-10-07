@@ -306,14 +306,14 @@ for(i in il6$ann$rowpos) {
   if (is.even(i))
     il6$p.ann <- il6$p.ann +
       annotate(geom = "rect", 
-               xmin = 0, xmax = 6, 
+               xmin = 0, xmax = 3, 
                ymin = il6$ann$min[i], 
                ymax = il6$ann$max[i],
                fill = rectcol2)
   else
     il6$p.ann <- il6$p.ann +
       annotate(geom = "rect", 
-               xmin = 0, xmax = 6, 
+               xmin = 0, xmax = 3, 
                ymin = il6$ann$min[i], 
                ymax = il6$ann$max[i],
                fill = rectcol1)
@@ -332,10 +332,10 @@ for(i in il6$ann$rowpos) {
 
 ### align plots ===============================================================
 aligned <- align_plots(il17a$p.ann, il6$p.ann, align = "h", axis = "tb") 
-gridtest <- plot_grid(aligned[[1]], aligned[[2]], rel_widths = c(10, 5))
+(gridtest <- plot_grid(aligned[[1]], aligned[[2]], rel_widths = c(10, 5)))
 cowplot::ggsave2(gridtest, filename = "~/Downloads/gridtest.pdf",
-                 width = 6, height = 5, units = "in")
-  
+                 width = 6, height = 4.4, units = "in")
+   
 
 
 

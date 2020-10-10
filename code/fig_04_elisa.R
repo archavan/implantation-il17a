@@ -2,6 +2,7 @@
 library(tidyverse)
 library(cowplot)
 library(ggtext)
+library(patchwork)
 
 ### read absorbance data ======================================================
 ## IL17A
@@ -65,9 +66,9 @@ plot_theme <-  theme_classic() +
 ## IL17A
 il17a$p <- ggplot(data = il17a$samp, aes(x = sample_name, y = conc_pgml)) +
   geom_hline(yintercept = mean(il17a$samp$conc_pgml[il17a$samp$sample_name == "T_unstim"]),
-             linetype = 2, color = "grey", size = 0.25) +
-  geom_jitter(size = 1.5, shape = 21, alpha = 1,
-              stroke = 0.25, width = 0.075, color = "black", fill = rectcol2) +
+             linetype = 2, color = "black", size = 0.25) +
+  geom_jitter(size = 2.5, shape = 21, alpha = 2,
+              stroke = 0.25, width = 0.075, color = "black", fill = "#FFF2CC") +
   coord_cartesian(ylim = c(0, 70), xlim = c(0, 6), clip = "off", expand = FALSE) +
   stat_summary(data = il17a$samp, fun.data = 'mean_se',
                size = 0.25, colour = 'black', geom = 'errorbar', width = 0.2, 
@@ -81,9 +82,9 @@ il17a$p <- ggplot(data = il17a$samp, aes(x = sample_name, y = conc_pgml)) +
 ## IL6
 il6$p <- ggplot(data = il6$samp, aes(x = sample_name, y = conc_pgml)) +
   geom_hline(yintercept = mean(il6$samp$conc_pgml[il6$samp$sample_name == "d0"]),
-             linetype = 2, color = "grey", size = 0.25) +
-  geom_jitter(size = 1.5, shape = 21, alpha = 1,
-              stroke = 0.25, width = 0.075, color = "black", fill = rectcol2) +
+             linetype = 2, color = "black", size = 0.25) +
+  geom_jitter(size = 2.5, shape = 21, alpha = 1.5,
+              stroke = 0.25, width = 0.075, color = "black", fill = "#FFF2CC") +
   coord_cartesian(ylim = c(0, 500), xlim = c(0, 3), clip = "off", expand = FALSE) +
   stat_summary(data = il6$samp, fun.data = 'mean_se',
                size = 0.25, colour = 'black', geom = 'errorbar', width = 0.2, 
@@ -331,15 +332,14 @@ for(i in il6$ann$rowpos) {
 }
 
 ### align plots ===============================================================
-aligned <- align_plots(il17a$p.ann, il6$p.ann, align = "h", axis = "tb") 
-(gridtest <- plot_grid(aligned[[1]], aligned[[2]], rel_widths = c(10, 5)))
-cowplot::ggsave2(gridtest, filename = "~/Downloads/gridtest.pdf",
-                 width = 6, height = 4.4, units = "in")
-   
+layout <- c(area(t = 1, l = 1, b = 4, r = 6),
+            area(t = 1, l = 7, b = 4, r = 9))
+composite <- il17a$p.ann + il6$p.ann + plot_layout(design = layout)
 
-
-
-
+cowplot::ggsave2(
+  filename = "results/fig_04_elisa/fig04_panel-BC_elisa.pdf",
+  composite,
+  width = 6, height = 4.5, units = "in")
 
 
 

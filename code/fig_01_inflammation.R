@@ -65,6 +65,7 @@ pan.b <- ggplot(data = imp.long,
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size = 7, color = "black"),
         axis.text.y = element_text(size = 7, color = "black"),
         axis.title = element_blank(),
+        axis.ticks.y = element_line(size = 0.25),
         panel.grid = element_blank(),
         plot.margin = margin(6, 30, 6, 6),
         legend.position = c(1, 0),
@@ -73,10 +74,8 @@ pan.b <- ggplot(data = imp.long,
         legend.title = element_text(color = "black", size = 6),
         legend.text = element_text(color = "black", size = 6))
 
-
-
 cowplot::ggsave2(
   filename = 'results/fig_01_inflammation/fig01_panel-B_dnov-inflam-genes.pdf',
-  pan.b, width = 2.2, height = 2.5, units = "in")
+  pan.b, width = 2.1, height = 2.5, units = "in")
 
 ### Fig. 1, Panel C: revigo ===================================================

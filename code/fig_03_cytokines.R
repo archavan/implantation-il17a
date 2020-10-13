@@ -2,10 +2,13 @@
 library(tidyverse)
 
 ### data ======================================================================
-# htseq counts
+# htseq counts for panal A
 dn.ht <- read.csv("data/rna-seq/read-counts_dnov_uterus.csv") # armadillo
 oc.ht <- read.csv("data/rna-seq/read-counts_ocun_uterus.csv") # rabbit
 md.ht <- read.csv("data/rna-seq/read-counts_mdom_uterus.csv") # opossum
+
+# qPCR data for panel B
+qpcr <- read.csv("data/qpcr/20170922_mdom_IL17A_timeseries_data.csv")
 
 ### genomic data ==============================================================
 # feature lengths 
@@ -175,6 +178,51 @@ cowplot::ggsave2(
   ck.heat, width = 3.75, height = 6, units = "in"
 )
 
+### Fig 3B: qPCR timeseries for IL17A =========================================
+qp <- ggplot(data = qpcr, aes(x = dpc, y = IL17AoverTBP)) +
+  geom_point(shape = 21, fill = "tan", color = "black", size = 1.75) +
+  stat_summary(data = qpcr, 
+               aes(x = dpc, y = IL17AoverTBP), 
+               fun.data = "mean_se", 
+               geom = "line", size = 0.25) +
+  stat_summary(data = qpcr, 
+               aes(x = dpc, y = IL17AoverTBP), 
+               fun.data = "mean_se", 
+               geom = "point", size = 1) +
+  scale_x_continuous(breaks = seq(0, 14, 2),
+                     labels = c("NA", seq(2, 14, 2))) +
+  scale_y_continuous(breaks = seq(0, 400, 100)) +
+  coord_cartesian(clip = "off", 
+                  ylim = c(-20, 425),
+                  xlim = c(-0.5, 14.5),
+                  expand = FALSE) +
+  labs(y = "IL17A mRNA\n(relative to TBP)") +
+  theme_classic() +
+  theme(
+    plot.background = element_blank(),
+    plot.margin = margin(6, 40, 30, 6),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(size = 7, color = "black"),
+    axis.text = element_text(size = 6, color = "black"),
+    axis.line = element_line(size = 0.25),
+    axis.ticks = element_line(size = 0.25)
+  ) +
+  annotate(geom = "segment", x = 0,    xend = 14.5, y = -85, yend = -85, size = 0.25) +
+  annotate(geom = "segment", x = 0,    xend = 0,    y = -85, yend = -100, size = 0.25) +
+  annotate(geom = "segment", x = 11.5, xend = 11.5, y = -85, yend = -100, size = 0.25) +
+  annotate(geom = "segment", x = 14.5, xend = 14.5, y = -85, yend = -100, size = 0.25) +
+  annotate(geom = "text", label = "copulation", 
+           x = 0, y = -120, hjust = 0.5, size = 7/.pt) +
+  annotate(geom = "text", label = "attachment", 
+           x = 13, y = -120, hjust = 1, size = 7/.pt) +
+  annotate(geom = "text", label = "parturition", 
+           x = 14, y = -120, hjust = 0, size = 7/.pt) +
+  annotate(geom = "text", label = "dpc",
+           x = 15, y = -20, hjust = 0, size = 7/.pt)
 
+cowplot::ggsave2(
+  filename = "results/fig_03_cytokines/fig_03_panel-B_IL17A-qPCR-timeseries.pdf",
+  qp, width = 2.75, height = 2, units = "in"
+)
 
-
+### end =======================================================================

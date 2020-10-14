@@ -45,10 +45,7 @@ vignettes/*.pdf
 # misc
 *.tif
 *.jpg
-*.png
-*.xlsx
 *.zip
-*.xls
 *.pptx
 *.ppt
 *.docx

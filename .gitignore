@@ -64,3 +64,6 @@ vignettes/*.pdf
 # system files
 .DS_Store 
 
+# cellranger output
+data/hsap_single-cell/02_cellranger_count
+

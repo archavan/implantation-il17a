@@ -36,7 +36,8 @@ p <- ggplot(dat, aes(sample, log2fc)) +
   geom_hline(yintercept = mean(dat$log2fc[dat$sample == "unstim"]),
              linetype = 2, color = "black", size = 0.25) +
   geom_jitter(width = 0.1, 
-              shape = 21, fill = "#ebe9dc", colour = "black", size = 1.75) +
+              shape = 21, fill = "#ebe9dc", colour = "black", 
+              size = 1.75, stroke = 0.5) +
   labs(y = "log<sub>2</sub> fold change<br>(over unstimulated)") +
   stat_summary(data = dat, fun.data = 'mean_se',
                size = 0.25, colour = 'black', geom = 'errorbar', width = 0.1, 

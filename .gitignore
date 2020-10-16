@@ -65,5 +65,6 @@ vignettes/*.pdf
 .DS_Store 
 
 # cellranger output
-data/hsap_single-cell/02_cellranger_count
+data/hsap_single-cell/02_cellranger-count/
+
 

@@ -25,10 +25,6 @@ cpm.data$hsap_ensembl_gid <- rownames(cpm.data)
 cpm.data <- inner_join(x = y$genes[, 1:2], y = cpm.data, 
                  by = 'hsap_ensembl_gid')
 
-write.csv(cpm.data, 
-          file = "results/fig_supp_03_tcell-rna-seq/edgeR/hsap-tcells_cpm_protein-coding.csv", 
-          row.names = F)
-
 ## run DE analysis ------------------------------------------------------------
 keep <- rowSums(cpm(y) > 1) >= 2 # filter low count genes
 y <- y[keep, , keep.lib.sizes = F]
@@ -63,12 +59,12 @@ down <- de[de$logFC < 0, ]
 # write gene lists for GO enrichment
 write.table(
   up$hsap_gene_name, 
-  file = "results/fig_supp_03_tcell-rna-seq/GO-enrichment/gene-list_protein-coding_edgeR_up.txt", 
+  file = "results/fig_supp_03_tcell-rna-seq/edgeR_hsap_tcells/GO-enrichment/up/gene-list_protein-coding_edgeR_up.txt", 
   row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE
 )
 write.table(
   down$hsap_gene_name, 
-  file = "results/fig_supp_03_tcell-rna-seq/GO-enrichment/gene-list_protein-coding_edgeR_down.txt", 
+  file = "results/fig_supp_03_tcell-rna-seq/edgeR_hsap_tcells/GO-enrichment/down/gene-list_protein-coding_edgeR_down.txt", 
   row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE
 )
 
@@ -84,7 +80,7 @@ cpm.full$mean_conditioned <- apply(cpm.full[, 7:10], MARGIN = 1, FUN = 'mean')
 
 write.csv(
   x = cpm.full, 
-  file = "results/fig_supp_03_tcell-rna-seq/edgeR/hsap-tcells_cpm_protein_coding_with-DE-data.csv", 
+  file = "results/fig_supp_03_tcell-rna-seq/edgeR_hsap_tcells/hsap_tcells_cpm_protein_coding_with-DE-data.csv", 
   row.names = F
   )
 

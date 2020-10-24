@@ -1,0 +1,1 @@
+Code related to RNA-seq data from implantation stage rabbit uterus. The data are from [Liu et al, *Genomics* 2016](https://doi.org/10.1016/j.ygeno.2016.03.005), and can be downloaded from NCBI GEO [GSE76115](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE76115). It contains data for implantation site and interimplantation site tissues, of which only the former were used.

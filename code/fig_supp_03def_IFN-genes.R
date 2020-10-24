@@ -82,7 +82,6 @@ ggsave(
 ### Panel E: OAS genes scatterplot ============================================
 oas <- cpm.tcell %>% 
   filter(grepl("^OAS", .$hsap_gene_name)) %>% 
-  mutate(label = hsap_gene_name) %>% 
   mutate(label = ifelse(
     hsap_gene_name %in% c("OAS1", "OAS2", "OAS3"), hsap_gene_name, NA
   )) %>% 
@@ -96,7 +95,7 @@ oas <- cpm.tcell %>%
   geom_text_repel(size = 7/.pt) +
   geom_abline(slope = 1, intercept = 0, size = 0.25, colour='grey') + 
   labs(x = "sqrt(CPM<sub>control</sub>)", 
-       y ="sqrt(CPM<sub>conditioned</sub>)") +
+       y = "sqrt(CPM<sub>conditioned</sub>)") +
   theme_classic() +
   theme(
     axis.line = element_line(size = 0.25, color = "black"),
@@ -117,5 +116,42 @@ cowplot::ggsave2(
   width = 3, height = 3, units = "in"
 )
 
-###
+### Panel F: EIF genes scatterplot ============================================
+eif <- cpm.tcell %>% 
+  filter(grepl("^EIF", .$hsap_gene_name)) %>% 
+  mutate(label = ifelse(
+    hsap_gene_name %in% c("EIF1", "EIF4B", "EIF4A2", "EIF2A", "EIF2B2", "EIF4G3", "EIF2AK2", "EIFEBP2"), 
+    hsap_gene_name, NA
+  )) %>% 
+  ggplot(aes(sqrt(mean_control), sqrt(mean_conditioned), label = label)) +
+  geom_point(aes(color = FDR < 10^-6), shape = 19, size  = 2) +
+  scale_color_manual(values = c('grey', 'red'), 
+                     breaks = c(FALSE, TRUE), 
+                     labels = c("p > 10<sup>-6</sup>", "p < 10<sup>-6</sup>")) +
+  scale_x_continuous(limits = c(0,45)) +
+  scale_y_continuous(limits = c(0,45)) +
+  geom_text_repel(size = 7/.pt) +
+  geom_abline(slope = 1, intercept = 0, size = 0.25, colour='grey') + 
+  labs(x = "sqrt(CPM<sub>control</sub>)", 
+       y = "sqrt(CPM<sub>conditioned</sub>)") +
+  theme_classic() +
+  theme(
+    axis.line = element_line(size = 0.25, color = "black"),
+    axis.ticks = element_line(size = 0.25, color = "black"),
+    axis.title.x = element_markdown(size = 7),
+    axis.title.y = element_markdown(size = 7),
+    axis.text = element_text(size = 7, color = "black"),
+    legend.title = element_blank(),
+    legend.text = element_markdown(size = 7),
+    legend.position = c(1, 0),
+    legend.justification = c(1, 0),
+    legend.background = element_blank()
+  )
 
+cowplot::ggsave2(
+  filename = "results/fig_supp_03_tcell-rna-seq/fig_supp_03_panel-F_EIF.pdf",
+  eif, 
+  width = 3, height = 3, units = "in"
+)
+
+### end =======================================================================

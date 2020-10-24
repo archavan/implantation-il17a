@@ -2,7 +2,7 @@
 library(tidyverse)
 
 ### data ======================================================================
-# htseq counts for panal A
+# htseq counts for panel A
 dn.ht <- read.csv("data/rna-seq/read-counts_dnov_uterus.csv") # armadillo
 oc.ht <- read.csv("data/rna-seq/read-counts_ocun_uterus.csv") # rabbit
 md.ht <- read.csv("data/rna-seq/read-counts_mdom_uterus.csv") # opossum

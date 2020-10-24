@@ -5,8 +5,8 @@ library(scales)
 library(ggrepel)
 
 ### data ======================================================================
-dn.ht <- read.csv("data/rna-seq/read-counts_dnov_uterus.csv")
-dn.fl <- read.csv("data/genomic-data/feature-lengths_dnov.csv")
+dn.ht <- read.csv("data/rna-seq/read-counts_dnov_uterus.csv") # armadillo htseq counts
+dn.fl <- read.csv("data/genomic-data/feature-lengths_dnov.csv") # armadillo feature lengths
 
 ### calculate tpm =============================================================
 dn.ht <- dplyr::inner_join(dn.fl, dn.ht, by = "dnov_ensembl_gid") 

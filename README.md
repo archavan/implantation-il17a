@@ -1,5 +1,7 @@
 # implantation-il17a
-Code and data associated with Chavan et al, *Molecular Biology and Evolution* (forthcoming).
+Code and data associated with Chavan et al, *Molecular Biology and Evolution* (2020).
+
+<a href="https://doi.org/10.1093/molbev/msaa274"><img src="https://img.shields.io/badge/DOI-10.1093/molbev/msaa274-green" alt="DOI"></a>
 
 **Title**: Evolution of embryo implantation was enabled by the origin of decidual stromal cells in eutherian mammals.
 
